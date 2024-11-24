@@ -115,7 +115,7 @@ def predict(strokes, display, alphabet, model, decoder, alphabet_mapper):
     batch = next(iter(dl_inference))
 
     with torch.no_grad():
-        log_softmax = model(batch['ink'].to('cuda'))
+        log_softmax = model(batch['ink'])
 
     decoded_texts = decoder(log_softmax, alphabet_mapper)
     decoded_text = decoded_texts[0]
@@ -126,6 +126,8 @@ def predict(strokes, display, alphabet, model, decoder, alphabet_mapper):
     display.insert(1.0, decoded_text, 'big')
 
     rmtree(TMP_FOLDER)
+    
+    return decoded_text
 
 class Sketchpad(Canvas):
     def __init__(self, parent, strokes: list, dot_radius: int, **kwargs):

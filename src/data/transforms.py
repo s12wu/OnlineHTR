@@ -247,7 +247,7 @@ class Carbune2020(object):
                 discard_sample = True # Remove full sample as one does not know which stroke the problem is
                 break
 
-            if not np.alltrue( df_grouped['t'].diff()[1:] >= 0.0 ):
+            if not np.all( df_grouped['t'].diff()[1:] >= 0.0 ):
                 # print(f'{sample_name=} {stroke_nr=}: time channel is non-monotonous - discard sample')
                 discard_sample = True # Remove full sample as one does not know which stroke the problem is
                 break
