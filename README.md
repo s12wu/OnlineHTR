@@ -1,9 +1,10 @@
 # Handwriting input panel
 
-demo.mp4
+https://github.com/user-attachments/assets/7994263e-e8bd-441d-aef8-2c4c7feedb03
 
-Enter text on your Linux desktop using handwriting recognition
+Enter text on your Linux desktop using handwriting recognition.
 This is based on PellelNitram's handwriting recognition implementation - all credits should go to them. (see below)
+
 All I did was modify the UI to be a floating window and type out the detected text.
 
 
