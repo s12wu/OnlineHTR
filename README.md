@@ -11,7 +11,7 @@ All I did was modify the UI to be a floating window and type out the detected te
 This is built for, but probably not limited to, the Pine64 PineNote running the Debian trixie GNOME image.
 It **works on wayland** by using ydotool and its root daemon to enter the text.
 
-To work with a German QWERTZ layout, this program simply swaps "Y" with "Z" and vice-versa. Disable this by setting `QWERTZ=False` in `src/draw_and_type.py`.
+To work with a German QWERTZ layout, this program simply swaps "Y" with "Z" and vice-versa. Other special characters are of course still messed up. Disable this by setting `QWERTZ=False` in `src/draw_and_type.py`.
 
 This is still a very early quick and dirty test.
 
@@ -25,6 +25,7 @@ This is still a very early quick and dirty test.
 ## future features
  - minimize / hide the window
  - Maybe add a function edit the text before typing to correct misspellings?
+ - Run a spell checker?
  - ...
 
 
@@ -42,10 +43,20 @@ cd build
 cmake .. -DSYSTEMD_SYSTEM_SERVICE=ON -DSYSTEMD_USER_SERVICE=OFF
 sudo make install
 sudo mv /usr/local/lib/systemd/user/ydotoold.service /lib/systemd/system/
-sudo systemctl start ydotoold.service # enable as well if you want it to run on system startup
 
-# ugh. Don't know a better way yet
-sudo chmod 666 /tmp/.ydotool_socket
+# edit the service file.
+sudo nano /lib/systemd/system/ydotoold.service
+# change
+ExecStart=/usr/local/bin/ydotoold
+# to
+ExecStart=/usr/local/bin/ydotoold -p /tmp/.ydotool_socket -P 666
+# this specifies the socked ydotool can use to communicate. -P 666 sets the necessary permissions
+
+sudo systemctl start ydotoold.service # enable as well if you want it to run it on system startup
+
+# verify ydotool is working
+YDOTOOL_SOCKET=/tmp/.ydotool_socket ydotool type "hello world" 
+ > hello world
 ```
 
 ### setup the handwriting input panel
@@ -66,7 +77,6 @@ pip install -e .
 cd to the repo folder
 ```bash
 source venv/bin/activate # if not done yet
-sudo chmod 666 /tmp/.ydotool_socket # if not done yet
 python src/draw_and_type.py
 ```
 
