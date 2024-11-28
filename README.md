@@ -1,3 +1,9 @@
+# under construction
+**I'm currently restructuring this project, moving my own UI to a new repo. Should be a neat opportunity to try out git submodules.**
+
+**Please check back in an hour or so**
+
+
 # Handwriting input panel
 
 https://github.com/user-attachments/assets/7994263e-e8bd-441d-aef8-2c4c7feedb03
