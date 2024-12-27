@@ -65,7 +65,7 @@ def store_strokes(strokes: list[list[(float, float, float)]], filename=None) -> 
     
     df.to_csv(filename) 
 
-def predict(strokes, display, alphabet, model, decoder, alphabet_mapper):
+def predict(strokes, alphabet, model, decoder, alphabet_mapper):
 
     if len(strokes) == 0:
         return
@@ -122,8 +122,6 @@ def predict(strokes, display, alphabet, model, decoder, alphabet_mapper):
 
     true_labels = batch['label_str']
 
-    display.delete(1.0, END)
-    display.insert(1.0, decoded_text, 'big')
 
     rmtree(TMP_FOLDER)
     
